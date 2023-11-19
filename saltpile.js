@@ -70,11 +70,19 @@ let c = a.map(function (e, i) {
 //every tick, do this:
 
 for(let i =0; i < 10; i++){ //setting it to 10 for testing
-    let randSalt = Math.floor((Math.random() * width) + 1)
-    c[randSalt][1] = 1
+    let randSalt = Math.floor((Math.random() * width))
+    c[randSalt][1] ? console.log("already occupied") : c[randSalt][1] = 1
     console.log(c[randSalt])
+    // c[randSalt][1] = 1
+    // console.log(c[randSalt][1])
+    // that line should always be able to get the second indice of the nested array within c
+    // i'm not sure why it's getting fucky with the if chain
     //add an if statement to check if the pixel is occupied
     //if occupied, check the pixel to the right, and then left
     //if they're both occupied, stack it.
 }
 // console.log(c)
+
+//i believe an out of bounds error is occurring somewhere; probably with the +1 in math random
+//i think that's what had me clogged up. should be able to write that awful if else chain then.
+//unfortunately i don't think i'll be able to use a ternary operator for that
