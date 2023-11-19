@@ -53,7 +53,7 @@
 //wait i'm being silly
 
 //zipping arrays will definitely help
-let width = 50 //asign this to dynamically update based on the width
+let width = 20 //asign this to dynamically update based on the width
 let a = []; //now just make this the length of the width of the screen
 let b = []; //and make these the same width as a.length, but all zero
 
@@ -71,12 +71,23 @@ let c = a.map(function (e, i) {
 
 for(let i =0; i < 10; i++){ //setting it to 10 for testing
     let randSalt = Math.floor((Math.random() * width))
-    c[randSalt][1] ? console.log("already occupied") : c[randSalt][1] = 1
+    // c[randSalt][1] ? console.log("already occupied") : c[randSalt][1] = 1
     console.log(c[randSalt])
-    // c[randSalt][1] = 1
-    // console.log(c[randSalt][1])
-    // that line should always be able to get the second indice of the nested array within c
-    // i'm not sure why it's getting fucky with the if chain
+    if(c[randSalt][1] == 0){
+        console.log("occupying pixel")
+        c[randSalt][1] == 1
+        console.log(c[randSalt])
+    } else if(c[randSalt][1] == 1 && c[randSalt -1][1] == 0){
+        console.log("occupying pixel to the left")
+        c[randSalt -1][1] == 1
+        console.log(c[randSalt-1])
+    } else if (c[randSalt][1] == 1 && c[randSalt-1][1] == 1){
+        console.log("occupying pixel to the right")
+        c[randSalt+1][1] == 1
+        console.log(c[randSalt+1])
+    } else if (c[randSalt][1] == 1 && c[randSalt-1][1] == 1 && c[randSalt+1][1] == 1){
+        console.log("going up a level; stack one on the next level at y + 1 and randSalt[0]")
+    }
     //add an if statement to check if the pixel is occupied
     //if occupied, check the pixel to the right, and then left
     //if they're both occupied, stack it.
@@ -86,3 +97,9 @@ for(let i =0; i < 10; i++){ //setting it to 10 for testing
 //i believe an out of bounds error is occurring somewhere; probably with the +1 in math random
 //i think that's what had me clogged up. should be able to write that awful if else chain then.
 //unfortunately i don't think i'll be able to use a ternary operator for that
+
+//so it's not updating the value, or hitting the left or right case
+//so there's two or three bugs present.
+//or actually maybe just one; if it updated the value, maybe it would fall into those other
+//statements in the if else chain
+//let's work on that first and see where it takes us
