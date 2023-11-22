@@ -85,18 +85,28 @@ for (let i = 0; i < 10; i++) {
       console.log(c[randSalt - 1]);
     }
   } else if (c[randSalt][1] == 1 && randSalt + 1 <= width) {
-    if(c[randSalt + 1][1] == 0)
-    console.log("occupying pixel to the right");
+    if (c[randSalt + 1][1] == 0) console.log("occupying pixel to the right");
     c[randSalt + 1][1] = 1;
     console.log(c[randSalt + 1]);
   } else if (
     c[randSalt][1] == 1 &&
+    randSalt - 1 > 0 &&
+    randSalt + 1 < width &&
     c[randSalt - 1][1] == 1 &&
     c[randSalt + 1][1] == 1
   ) {
     console.log(
       "going up a level; stack one on the next level at y + 1 and randSalt[0]"
     );
+  } else if (
+    c[randSalt][1] == 1 &&
+    randSalt - 1 < 0 &&
+    c[randSalt + 1][1] == 1 ||
+    c[randSalt][1] == 1 &&
+    randSalt + 1 > width &&
+    c[randSalt - 1][1] == 1
+  ){
+    console.log("hit the upper or lower edges; going up a level")
   }
   //add an if statement to check if the pixel is occupied
   //if occupied, check the pixel to the right, and then left
@@ -145,3 +155,7 @@ for (let i = 0; i < 10; i++) {
 //it should return an error if it gets partway through that control block
 //it's getting repeat values and not evaluating that block.
 //so there's definitely something wrong with the logic.
+
+//this method sucks
+//i'm curious why it's not working, but honestly there's a better way to do it
+
