@@ -11,8 +11,6 @@ function setHeightWidth() {
 }
 canvas.style.backgroundColor = "black"; //set background color
 
-//eat your pea professor
-
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
 ctx.fillStyle = "#FFFFFF";
@@ -22,8 +20,6 @@ ctx.fillStyle = "#FFFFFF";
 // preserve that
 
 //alright, now let's put this in a function that can be called on a timer
-
-let dummyWidth = 10
 
 function putSalt() {
   let y = H; //you'll want to reinitialize y as H
@@ -62,7 +58,7 @@ for(let i = 0; i < 10; i++){
 //if either of those are black, place a white pixel
 //if both are white, increment Y and start the loop over again.
 //but you do not need to track things in a data structure
-//just pixel peak.
+//just pixel peek.
 
 //the error this can introduce is that it doesn't account for
 //the canvas beyond the viewport; if i recall,
