@@ -13,8 +13,8 @@ window.onload = function () {
   function setHeightWidth() {
     // let W = window.innerWidth;
     // let H = window.innerHeight;
-    let W = 500
-    let H = 500
+    let W = window.innerWidth;
+    let H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
   }
@@ -26,8 +26,8 @@ window.onload = function () {
   ctx.fillStyle = "#FFFFFF";
 
 
-  const y = 500;
-  const x = 500;
+  const y = window.innerHeight;
+  const x = window.innerWidth;
   let cascArr = new Array(y);
 
   //this for loop initializes the array
@@ -39,25 +39,25 @@ window.onload = function () {
   function cascadeArray(arr, xCoord, yCoord) {
     //start with a math random to get the xCoord
     xCoord = Math.floor(Math.random() * x);
-    yCoord = 499;
+    yCoord = y - 1; //must be ONE less than horizontal max or won't render
     while (yCoord < y) {
       if (!arr[yCoord].includes(xCoord)) {
         arr[yCoord].push(xCoord);
         // console.log(`pushing ${xCoord}, ${yCoord}`);
-        setTimeout( ctx.fillRect(xCoord, yCoord, 1, 1), 100 )
-        yCoord = 499;
+        setTimeout( ctx.fillRect(xCoord, yCoord, 4, 4), 100 )
+        yCoord = 799;
         return;
       } else if (!arr[yCoord].includes(xCoord - 1) && xCoord - 1 > -1) {
         arr[yCoord].push(xCoord - 1);
         // console.log(`pushing ${xCoord} - 1, ${yCoord}`);
-        ctx.fillRect(xCoord - 1, yCoord, 1, 1)
-        yCoord = 499;
+        ctx.fillRect(xCoord - 1, yCoord, 4, 4)
+        yCoord = 799;
         return;
       } else if (!arr[yCoord].includes(xCoord + 1) && xCoord + 1 < x) {
         arr[yCoord].push(xCoord + 1);
         // console.log(`pushing ${xCoord} + 1, ${yCoord}`);
-        ctx.fillRect(xCoord + 1, yCoord, 1, 1)
-        yCoord = 499;
+        ctx.fillRect(xCoord + 1, yCoord, 4, 4)
+        yCoord = 799;
         return;
       } else {
         yCoord -= 1;
@@ -66,12 +66,15 @@ window.onload = function () {
     }
   }
 
-  for (let i = 0; i < 100000; i++) {
-    //this is the loop condition that matters.
-    cascadeArray(cascArr, x, y); //the number, currently 2500, should be dependent
-    //on the width times length of the canvas.
-  }
+  // for (let i = 0; i < 100000; i++) {
+  //   //this is the loop condition that matters.
+  //   cascadeArray(cascArr, x, y); //the number, currently 2500, should be dependent
+  //   //on the width times length of the canvas.
+  // }
   // console.log(cascArr);
+
+  setInterval(function(){cascadeArray(cascArr, x, y);}, 100);
+
 
   // the arrays behave as they should
   // now to build the canvas
