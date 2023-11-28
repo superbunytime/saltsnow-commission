@@ -5,64 +5,81 @@
 //that will contain all of them. it's going to be stacked
 //columns of y with rows of x, as how coordinates would work
 
-const y = 5;
-const x = 5;
-let cascArr = new Array(y);
+window.onload = function () {
+  let canvas = document.getElementById("snowCanvas");
+  setHeightWidth(); //initial height and width of canvas;
+  window.onresize = setHeightWidth; //Reset W and H values when changing windows
 
-//this for loop initializes the array
+  function setHeightWidth() {
+    // let W = window.innerWidth;
+    // let H = window.innerHeight;
+    let W = 500
+    let H = 500
+    canvas.width = W;
+    canvas.height = H;
+  }
 
-for (var i = 0; i < y; i++) {
-  cascArr[i] = new Array();
-}
+  canvas.style.backgroundColor = "black"; //set background color
 
-function cascadeArray(arr, xCoord, yCoord) {
-  //start with a math random to get the xCoord
-  xCoord = Math.floor(Math.random() * x);
-  yCoord = 0;
-  while (yCoord < y) {
-    if (!arr[yCoord].includes(xCoord)) {
-      arr[yCoord].push(xCoord);
-      // console.log(`pushing ${xCoord}, ${yCoord}`);
-      yCoord = 0;
-      return
-    } else if (!arr[yCoord].includes(xCoord - 1) && xCoord - 1 > -1) {
-      arr[yCoord].push(xCoord - 1);
-      // console.log(`pushing ${xCoord} - 1, ${yCoord}`);
-      yCoord = 0;
-      return
-    } else if (!arr[yCoord].includes(xCoord + 1) && xCoord + 1 < x) {
-      arr[yCoord].push(xCoord + 1);
-      // console.log(`pushing ${xCoord} + 1, ${yCoord}`);
-      yCoord = 0;
-      return
-    } else {
-      yCoord += 1;
-      // console.log("incrementing Y");
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+  ctx.fillStyle = "#FFFFFF";
+
+
+  const y = 500;
+  const x = 500;
+  let cascArr = new Array(y);
+
+  //this for loop initializes the array
+
+  for (var i = 0; i < y; i++) {
+    cascArr[i] = new Array();
+  }
+
+  function cascadeArray(arr, xCoord, yCoord) {
+    //start with a math random to get the xCoord
+    xCoord = Math.floor(Math.random() * x);
+    yCoord = 499;
+    while (yCoord < y) {
+      if (!arr[yCoord].includes(xCoord)) {
+        arr[yCoord].push(xCoord);
+        // console.log(`pushing ${xCoord}, ${yCoord}`);
+        setTimeout( ctx.fillRect(xCoord, yCoord, 1, 1), 100 )
+        yCoord = 499;
+        return;
+      } else if (!arr[yCoord].includes(xCoord - 1) && xCoord - 1 > -1) {
+        arr[yCoord].push(xCoord - 1);
+        // console.log(`pushing ${xCoord} - 1, ${yCoord}`);
+        ctx.fillRect(xCoord - 1, yCoord, 1, 1)
+        yCoord = 499;
+        return;
+      } else if (!arr[yCoord].includes(xCoord + 1) && xCoord + 1 < x) {
+        arr[yCoord].push(xCoord + 1);
+        // console.log(`pushing ${xCoord} + 1, ${yCoord}`);
+        ctx.fillRect(xCoord + 1, yCoord, 1, 1)
+        yCoord = 499;
+        return;
+      } else {
+        yCoord -= 1;
+        // console.log("incrementing Y");
+      }
     }
   }
-}
 
-for (let i = 0; i < 20; i++){ //this is the loop condition that matters.
-  cascadeArray(cascArr, x, y);
+  for (let i = 0; i < 100000; i++) {
+    //this is the loop condition that matters.
+    cascadeArray(cascArr, x, y); //the number, currently 2500, should be dependent
+    //on the width times length of the canvas.
+  }
+  // console.log(cascArr);
 
-}
-console.log(cascArr);
+  // the arrays behave as they should
+  // now to build the canvas
+  // let's start with a test 50x50 canvas.
 
-//be sure to handle for out of bounds
-//let's test that for the first level, then add it to a while loop
-//while < y, keep doing that
-//alright i seem to have encountered an interesting error
-//while handling for out of bounds
-//for troubleshooting, let's change the console logs into fstrings
+  // the settimeout is being finnicky
+  //maybe if i put settimeout in each pixel placement
 
-//okay so there's an error somewhere in this logic,
-//but i think i can set it down for now.
-//it's so close to being done but i can't spend all night working on it.
-
-//as a final note, some kind of nesting needs to happen
-//in regards to that yCoord incrementing
-//my brain isn't working for that right now though so i'm stepping back
-
-//preliminarily before starting on it again, i think an issue is
-//i'm not reinitializing the y value as 0
-//i will need to do that in every case that adds a value to the array
+  //referencing a super old color clicker thing i made to put the pixels properly
+  
+};
